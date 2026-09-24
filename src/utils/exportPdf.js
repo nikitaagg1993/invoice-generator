@@ -8,9 +8,16 @@ export async function exportInvoiceToPdf(elementId, filename = 'Tax_Invoice.pdf'
     return;
   }
 
-  // Clone element to isolate from any parent Tailwind v4 oklch CSS variables
+  // Clone element to isolate from parent styling
   const clone = element.cloneNode(true);
   
+  // Remove decorative container borders/shadows from clone so only the invoice grid box is rendered
+  clone.style.border = 'none';
+  clone.style.boxShadow = 'none';
+  clone.style.outline = 'none';
+  clone.style.minHeight = 'auto';
+  clone.style.height = 'auto';
+
   // Create an isolated container with standard white background & black text
   const container = document.createElement('div');
   container.style.position = 'absolute';
@@ -19,12 +26,11 @@ export async function exportInvoiceToPdf(elementId, filename = 'Tax_Invoice.pdf'
   container.style.width = '210mm';
   container.style.backgroundColor = '#ffffff';
   container.style.color = '#000000';
-  container.style.fontFamily = 'Arial, sans-serif';
+  container.style.fontFamily = 'Calibri, Arial, sans-serif';
 
-  // Replace any oklch color references in computed styles by resetting style attributes
+  // Replace any oklch color references in computed styles
   const allNodes = clone.querySelectorAll('*');
   allNodes.forEach(node => {
-    // Force standard hex color attributes if necessary
     node.style.color = node.style.color || '';
   });
 
@@ -32,7 +38,7 @@ export async function exportInvoiceToPdf(elementId, filename = 'Tax_Invoice.pdf'
   document.body.appendChild(container);
 
   const opt = {
-    margin: [2, 2, 2, 2],
+    margin: 0,
     filename: filename,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: {
@@ -40,9 +46,11 @@ export async function exportInvoiceToPdf(elementId, filename = 'Tax_Invoice.pdf'
       useCORS: true,
       logging: false,
       scrollY: 0,
-      scrollX: 0
+      scrollX: 0,
+      windowWidth: 794
     },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: 'avoid-all' }
   };
 
   try {

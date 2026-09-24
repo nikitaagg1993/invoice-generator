@@ -68,7 +68,7 @@ export default function InvoicePreview({ invoiceData }) {
       {/* Printable Paper Canvas */}
       <div
         id="invoice-paper"
-        className="w-[210mm] min-h-[297mm] bg-white text-black p-[8mm] shadow-xl border border-gray-300 print:shadow-none print:border-none print:p-0 box-border font-sans text-[11px] leading-[1.35] relative"
+        className="w-[210mm] bg-white text-black p-[6mm] sm:p-[8mm] shadow-xl border border-gray-200 print:shadow-none print:border-none print:p-0 box-border font-sans text-[11px] leading-[1.35] relative"
         style={{ fontFamily: 'Calibri, Arial, sans-serif' }}
       >
         {/* Title Header */}
@@ -202,7 +202,7 @@ export default function InvoicePreview({ invoiceData }) {
           </div>
 
           {/* Table Body with Min Height to Match Traditional Tally Layout */}
-          <div className="grid grid-cols-12 min-h-[260px] text-[11px] relative">
+          <div className="grid grid-cols-12 min-h-[200px] text-[11px] relative">
             {/* Columns Vertical Grid Borders Background */}
             <div className="absolute inset-0 grid grid-cols-12 pointer-events-none">
               <div className="col-span-1 border-r border-black"></div>

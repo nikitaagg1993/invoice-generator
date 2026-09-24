@@ -51,7 +51,6 @@
 }
 
 /* Explicit standard hex color overrides for #invoice-paper to prevent html2canvas oklch errors */
-#invoice-paper,
 #invoice-paper * {
   color: #000000;
   border-color: #000000;
