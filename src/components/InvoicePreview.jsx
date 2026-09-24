@@ -302,15 +302,17 @@ export default function InvoicePreview({ invoiceData }) {
             {taxType === 'IGST' ? (
               <table className="w-full text-[10px] border-collapse text-center">
                 <thead>
-                  <tr className="border-b border-black font-semibold bg-gray-50/50">
-                    <th rowSpan={2} className="border-r border-black p-1 text-left align-middle w-[22%]">HSN/SAC</th>
-                    <th rowSpan={2} className="border-r border-black p-1 text-right align-middle w-[25%]">Taxable Value</th>
-                    <th colSpan={2} className="border-r border-black p-0.5 text-center border-b border-black">IGST</th>
-                    <th rowSpan={2} className="p-1 text-right align-middle w-[23%]">Total Tax Amount</th>
-                  </tr>
-                  <tr className="border-b border-black font-semibold text-[9.5px] bg-gray-50/50">
-                    <th className="border-r border-black p-0.5 text-center w-[12%]">Rate</th>
-                    <th className="border-r border-black p-0.5 text-right pr-1.5 w-[18%]">Amount</th>
+                  <tr className="border-b border-black font-semibold" style={{ backgroundColor: '#f9fafb' }}>
+                    <th className="border-r border-black px-1.5 py-1 text-left align-middle w-[22%]">HSN/SAC</th>
+                    <th className="border-r border-black px-1.5 py-1 text-right align-middle w-[25%]">Taxable Value</th>
+                    <th className="border-r border-black p-0 w-[30%] align-top">
+                      <div className="border-b border-black py-1 text-center font-bold">IGST</div>
+                      <div className="flex w-full text-[9.5px]">
+                        <div className="w-1/2 border-r border-black py-1 text-center font-semibold">Rate</div>
+                        <div className="w-1/2 py-1 text-right pr-1.5 font-semibold">Amount</div>
+                      </div>
+                    </th>
+                    <th className="px-1.5 py-1 text-right align-middle w-[23%]">Total Tax Amount</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -318,16 +320,24 @@ export default function InvoicePreview({ invoiceData }) {
                     <tr key={i} className="border-b border-gray-400">
                       <td className="border-r border-black p-1 text-left">{hsnItem.hsn}</td>
                       <td className="border-r border-black p-1 text-right">{formatNum(hsnItem.taxableValue)}</td>
-                      <td className="border-r border-black p-1 text-center">{hsnItem.taxRate}%</td>
-                      <td className="border-r border-black p-1 text-right pr-1.5">{formatNum(hsnItem.taxAmount)}</td>
+                      <td className="border-r border-black p-0">
+                        <div className="flex w-full">
+                          <div className="w-1/2 border-r border-black p-1 text-center">{hsnItem.taxRate}%</div>
+                          <div className="w-1/2 p-1 text-right pr-1.5">{formatNum(hsnItem.taxAmount)}</div>
+                        </div>
+                      </td>
                       <td className="p-1 text-right pr-1.5 font-semibold">{formatNum(hsnItem.taxAmount)}</td>
                     </tr>
                   ))}
-                  <tr className="font-bold bg-gray-50/50">
+                  <tr className="font-bold" style={{ backgroundColor: '#f9fafb' }}>
                     <td className="border-r border-black p-1 text-right">Total</td>
                     <td className="border-r border-black p-1 text-right">{formatNum(subtotal)}</td>
-                    <td className="border-r border-black p-1"></td>
-                    <td className="border-r border-black p-1 text-right pr-1.5">{formatNum(totalTaxAmount)}</td>
+                    <td className="border-r border-black p-0">
+                      <div className="flex w-full">
+                        <div className="w-1/2 border-r border-black p-1"></div>
+                        <div className="w-1/2 p-1 text-right pr-1.5">{formatNum(totalTaxAmount)}</div>
+                      </div>
+                    </td>
                     <td className="p-1 text-right pr-1.5">{formatNum(totalTaxAmount)}</td>
                   </tr>
                 </tbody>
@@ -336,18 +346,24 @@ export default function InvoicePreview({ invoiceData }) {
               /* CGST + SGST Breakdown Table */
               <table className="w-full text-[10px] border-collapse text-center">
                 <thead>
-                  <tr className="border-b border-black font-semibold bg-gray-50/50">
-                    <th rowSpan={2} className="border-r border-black p-1 text-left align-middle w-[18%]">HSN/SAC</th>
-                    <th rowSpan={2} className="border-r border-black p-1 text-right align-middle w-[22%]">Taxable Value</th>
-                    <th colSpan={2} className="border-r border-black p-0.5 text-center border-b border-black">Central Tax (CGST)</th>
-                    <th colSpan={2} className="border-r border-black p-0.5 text-center border-b border-black">State Tax (SGST)</th>
-                    <th rowSpan={2} className="p-1 text-right align-middle w-[20%]">Total Tax Amount</th>
-                  </tr>
-                  <tr className="border-b border-black font-semibold text-[9.5px] bg-gray-50/50">
-                    <th className="border-r border-black p-0.5 text-center">Rate</th>
-                    <th className="border-r border-black p-0.5 text-right pr-1">Amount</th>
-                    <th className="border-r border-black p-0.5 text-center">Rate</th>
-                    <th className="border-r border-black p-0.5 text-right pr-1">Amount</th>
+                  <tr className="border-b border-black font-semibold" style={{ backgroundColor: '#f9fafb' }}>
+                    <th className="border-r border-black px-1.5 py-1 text-left align-middle w-[18%]">HSN/SAC</th>
+                    <th className="border-r border-black px-1.5 py-1 text-right align-middle w-[22%]">Taxable Value</th>
+                    <th className="border-r border-black p-0 w-[20%] align-top">
+                      <div className="border-b border-black py-1 text-center font-bold">Central Tax (CGST)</div>
+                      <div className="flex w-full text-[9.5px]">
+                        <div className="w-1/2 border-r border-black py-1 text-center font-semibold">Rate</div>
+                        <div className="w-1/2 py-1 text-right pr-1 font-semibold">Amount</div>
+                      </div>
+                    </th>
+                    <th className="border-r border-black p-0 w-[20%] align-top">
+                      <div className="border-b border-black py-1 text-center font-bold">State Tax (SGST)</div>
+                      <div className="flex w-full text-[9.5px]">
+                        <div className="w-1/2 border-r border-black py-1 text-center font-semibold">Rate</div>
+                        <div className="w-1/2 py-1 text-right pr-1 font-semibold">Amount</div>
+                      </div>
+                    </th>
+                    <th className="px-1.5 py-1 text-right align-middle w-[20%]">Total Tax Amount</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -358,21 +374,37 @@ export default function InvoicePreview({ invoiceData }) {
                       <tr key={i} className="border-b border-gray-400">
                         <td className="border-r border-black p-1 text-left">{hsnItem.hsn}</td>
                         <td className="border-r border-black p-1 text-right">{formatNum(hsnItem.taxableValue)}</td>
-                        <td className="border-r border-black p-1 text-center">{halfRate}</td>
-                        <td className="border-r border-black p-1 text-right pr-1">{formatNum(halfAmt)}</td>
-                        <td className="border-r border-black p-1 text-center">{halfRate}</td>
-                        <td className="border-r border-black p-1 text-right pr-1">{formatNum(halfAmt)}</td>
+                        <td className="border-r border-black p-0">
+                          <div className="flex w-full">
+                            <div className="w-1/2 border-r border-black p-1 text-center">{halfRate}</div>
+                            <div className="w-1/2 p-1 text-right pr-1">{formatNum(halfAmt)}</div>
+                          </div>
+                        </td>
+                        <td className="border-r border-black p-0">
+                          <div className="flex w-full">
+                            <div className="w-1/2 border-r border-black p-1 text-center">{halfRate}</div>
+                            <div className="w-1/2 p-1 text-right pr-1">{formatNum(halfAmt)}</div>
+                          </div>
+                        </td>
                         <td className="p-1 text-right pr-1.5 font-semibold">{formatNum(hsnItem.taxAmount)}</td>
                       </tr>
                     );
                   })}
-                  <tr className="font-bold bg-gray-50/50">
+                  <tr className="font-bold" style={{ backgroundColor: '#f9fafb' }}>
                     <td className="border-r border-black p-1 text-right">Total</td>
                     <td className="border-r border-black p-1 text-right">{formatNum(subtotal)}</td>
-                    <td className="border-r border-black p-1"></td>
-                    <td className="border-r border-black p-1 text-right pr-1">{formatNum(totalTaxAmount / 2)}</td>
-                    <td className="border-r border-black p-1"></td>
-                    <td className="border-r border-black p-1 text-right pr-1">{formatNum(totalTaxAmount / 2)}</td>
+                    <td className="border-r border-black p-0">
+                      <div className="flex w-full">
+                        <div className="w-1/2 border-r border-black p-1"></div>
+                        <div className="w-1/2 p-1 text-right pr-1">{formatNum(totalTaxAmount / 2)}</div>
+                      </div>
+                    </td>
+                    <td className="border-r border-black p-0">
+                      <div className="flex w-full">
+                        <div className="w-1/2 border-r border-black p-1"></div>
+                        <div className="w-1/2 p-1 text-right pr-1">{formatNum(totalTaxAmount / 2)}</div>
+                      </div>
+                    </td>
                     <td className="p-1 text-right pr-1.5">{formatNum(totalTaxAmount)}</td>
                   </tr>
                 </tbody>
