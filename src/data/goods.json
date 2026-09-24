@@ -1,0 +1,38 @@
+[
+  {
+    "id": "good-1",
+    "name": "Tools As Per Sample",
+    "hsn": "8463",
+    "rate": 6200.00,
+    "per": "Set",
+    "quantity": 1,
+    "taxRate": 18
+  },
+  {
+    "id": "good-2",
+    "name": "Industrial Chains (Heavy Duty)",
+    "hsn": "7315",
+    "rate": 1500.00,
+    "per": "Mtr",
+    "quantity": 10,
+    "taxRate": 18
+  },
+  {
+    "id": "good-3",
+    "name": "Steel Sprockets Type B",
+    "hsn": "8483",
+    "rate": 450.00,
+    "per": "Pcs",
+    "quantity": 5,
+    "taxRate": 18
+  },
+  {
+    "id": "good-4",
+    "name": "Precision Roller Bearings",
+    "hsn": "8482",
+    "rate": 890.00,
+    "per": "Nos",
+    "quantity": 2,
+    "taxRate": 18
+  }
+]

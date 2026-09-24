@@ -1,0 +1,32 @@
+[
+  {
+    "id": "seller-1",
+    "name": "PARDEEP ENGG WORKS",
+    "address": "B-38, LAWRENCE ROAD INDUSTRIAL AREA\nDELHI - 110035",
+    "gstin": "07AAKPK2658Q1Z0",
+    "stateName": "Delhi",
+    "stateCode": "07",
+    "email": "pardeepenggworks@gmail.com",
+    "bankDetails": {
+      "acHolderName": "PARDEEP ENGG WORKS",
+      "bankName": "ICICI Bank",
+      "accountNo": "083005000548",
+      "branchIfsc": "LAWRENCE ROAD, DELHI & ICIC0000830"
+    }
+  },
+  {
+    "id": "seller-2",
+    "name": "METRO PRECISION TOOLS PVT LTD",
+    "address": "Plot 45, Okhla Industrial Estate Phase III\nNew Delhi - 110020",
+    "gstin": "07AAACM1234F1Z9",
+    "stateName": "Delhi",
+    "stateCode": "07",
+    "email": "sales@metroprecision.com",
+    "bankDetails": {
+      "acHolderName": "METRO PRECISION TOOLS PVT LTD",
+      "bankName": "HDFC Bank",
+      "accountNo": "50200012345678",
+      "branchIfsc": "OKHLA PHASE 3, DELHI & HDFC0000123"
+    }
+  }
+]

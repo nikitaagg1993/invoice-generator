@@ -1,0 +1,29 @@
+[
+  {
+    "id": "buyer-1",
+    "name": "SAVITRI CHAINS",
+    "address": "7A, SHIB KRISHNA DAW LANE, KOLKATA,\nWest Bengal - 700007",
+    "gstin": "19ACUFS8067M1ZV",
+    "stateName": "West Bengal",
+    "stateCode": "19",
+    "placeOfSupply": "West Bengal"
+  },
+  {
+    "id": "buyer-2",
+    "name": "APEX AUTOMOTIVE COMPONENTS",
+    "address": "12/A, Industrial Area, Sector 5,\nGurugram, Haryana - 122001",
+    "gstin": "06AAACA9876E1ZS",
+    "stateName": "Haryana",
+    "stateCode": "06",
+    "placeOfSupply": "Haryana"
+  },
+  {
+    "id": "buyer-3",
+    "name": "ROYAL HARDWARE STORES",
+    "address": "45, Chandni Chowk Road,\nDelhi - 110006",
+    "gstin": "07AABCR4321D1ZQ",
+    "stateName": "Delhi",
+    "stateCode": "07",
+    "placeOfSupply": "Delhi"
+  }
+]
