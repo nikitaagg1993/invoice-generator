@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import GstDatePicker from './GstDatePicker';
 import { 
   Building2, 
   User, 
@@ -228,18 +229,12 @@ export default function InvoiceForm({
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                Dated *
-              </label>
-              <input
-                type="text"
-                value={invoiceData.invoiceDate || ''}
-                onChange={(e) => onChange({ ...invoiceData, invoiceDate: e.target.value })}
-                className="w-full px-3 py-2 text-xs border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-                placeholder="e.g. 22-Sep-26"
-              />
-            </div>
+            <GstDatePicker
+              label="Dated"
+              value={invoiceData.invoiceDate || ''}
+              onChange={(val) => onChange({ ...invoiceData, invoiceDate: val })}
+              required
+            />
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
@@ -301,17 +296,11 @@ export default function InvoiceForm({
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                Buyer's Order Date
-              </label>
-              <input
-                type="text"
-                value={invoiceData.buyersOrderDate || ''}
-                onChange={(e) => onChange({ ...invoiceData, buyersOrderDate: e.target.value })}
-                className="w-full px-3 py-2 text-xs border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-              />
-            </div>
+            <GstDatePicker
+              label="Buyer's Order Date"
+              value={invoiceData.buyersOrderDate || ''}
+              onChange={(val) => onChange({ ...invoiceData, buyersOrderDate: val })}
+            />
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
@@ -325,17 +314,11 @@ export default function InvoiceForm({
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                Delivery Note Date
-              </label>
-              <input
-                type="text"
-                value={invoiceData.deliveryNoteDate || ''}
-                onChange={(e) => onChange({ ...invoiceData, deliveryNoteDate: e.target.value })}
-                className="w-full px-3 py-2 text-xs border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
-              />
-            </div>
+            <GstDatePicker
+              label="Delivery Note Date"
+              value={invoiceData.deliveryNoteDate || ''}
+              onChange={(val) => onChange({ ...invoiceData, deliveryNoteDate: val })}
+            />
 
             <div>
               <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
