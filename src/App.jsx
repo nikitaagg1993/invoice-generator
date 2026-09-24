@@ -5,7 +5,7 @@ import initialGoods from './data/goods.json';
 
 import InvoiceForm from './components/InvoiceForm';
 import InvoicePreview from './components/InvoicePreview';
-import JsonDataModal from './components/JsonDataModal';
+import CatalogManagerModal from './components/CatalogManagerModal';
 import { exportInvoiceToPdf } from './utils/exportPdf';
 import { 
   FileText, 
@@ -14,17 +14,75 @@ import {
   Database, 
   Eye, 
   Edit3, 
-  Sparkles,
-  Layers,
-  ArrowRight
+  Layers
 } from 'lucide-react';
 
 export default function App() {
-  const [sellers, setSellers] = useState(initialSellers);
-  const [buyers, setBuyers] = useState(initialBuyers);
-  const [goods, setGoods] = useState(initialGoods);
-  const [isJsonModalOpen, setIsJsonModalOpen] = useState(false);
+  // Load sellers from localStorage or default JSON
+  const [sellers, setSellers] = useState(() => {
+    try {
+      const saved = localStorage.getItem('gst_sellers');
+      return saved ? JSON.parse(saved) : initialSellers;
+    } catch (e) {
+      return initialSellers;
+    }
+  });
+
+  // Load buyers from localStorage or default JSON
+  const [buyers, setBuyers] = useState(() => {
+    try {
+      const saved = localStorage.getItem('gst_buyers');
+      return saved ? JSON.parse(saved) : initialBuyers;
+    } catch (e) {
+      return initialBuyers;
+    }
+  });
+
+  // Load goods from localStorage or default JSON
+  const [goods, setGoods] = useState(() => {
+    try {
+      const saved = localStorage.getItem('gst_goods');
+      return saved ? JSON.parse(saved) : initialGoods;
+    } catch (e) {
+      return initialGoods;
+    }
+  });
+
+  const [isCatalogModalOpen, setIsCatalogModalOpen] = useState(false);
+  const [catalogInitialTab, setCatalogInitialTab] = useState('sellers');
   const [viewMode, setViewMode] = useState('split'); // 'split', 'form', 'preview'
+
+  // Persistent state updates
+  const handleUpdateSellers = (newSellers) => {
+    setSellers(newSellers);
+    localStorage.setItem('gst_sellers', JSON.stringify(newSellers));
+  };
+
+  const handleUpdateBuyers = (newBuyers) => {
+    setBuyers(newBuyers);
+    localStorage.setItem('gst_buyers', JSON.stringify(newBuyers));
+  };
+
+  const handleUpdateGoods = (newGoods) => {
+    setGoods(newGoods);
+    localStorage.setItem('gst_goods', JSON.stringify(newGoods));
+  };
+
+  const handleResetDefaults = () => {
+    if (confirm('Are you sure you want to reset sellers, buyers, and goods catalog to default initial JSON?')) {
+      localStorage.removeItem('gst_sellers');
+      localStorage.removeItem('gst_buyers');
+      localStorage.removeItem('gst_goods');
+      setSellers(initialSellers);
+      setBuyers(initialBuyers);
+      setGoods(initialGoods);
+    }
+  };
+
+  const handleOpenCatalogModal = (tab = 'sellers') => {
+    setCatalogInitialTab(tab);
+    setIsCatalogModalOpen(true);
+  };
 
   // Default sample invoice state matching user's PDF exact values
   const defaultInvoiceState = {
@@ -82,6 +140,23 @@ export default function App() {
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleSelectSeller = (selectedSeller) => {
+    setInvoiceData({
+      ...invoiceData,
+      seller: selectedSeller,
+      bankDetails: selectedSeller.bankDetails || invoiceData.bankDetails
+    });
+  };
+
+  const handleSelectBuyer = (selectedBuyer) => {
+    const isInterState = invoiceData.seller?.stateCode !== selectedBuyer.stateCode;
+    setInvoiceData({
+      ...invoiceData,
+      buyer: selectedBuyer,
+      taxType: isInterState ? 'IGST' : 'CGST_SGST'
+    });
   };
 
   return (
@@ -145,14 +220,14 @@ export default function App() {
               </button>
             </div>
 
-            {/* Manage Master JSON Button */}
+            {/* Manage Master Catalog Manager Button */}
             <button
-              onClick={() => setIsJsonModalOpen(true)}
+              onClick={() => handleOpenCatalogModal('sellers')}
               className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
-              title="View & Edit JSON data for Sellers, Buyers, Goods"
+              title="Add, Edit & Export JSON Data for Sellers, Buyers, Goods"
             >
               <Database className="w-4 h-4 text-emerald-400" />
-              <span className="hidden sm:inline">Manage JSON Data</span>
+              <span className="hidden sm:inline">Manage Catalogs &amp; JSON</span>
             </button>
 
             {/* Native Print */}
@@ -212,10 +287,11 @@ export default function App() {
               onResetSample={handleResetSample}
               onDownloadPdf={handleDownloadPdf}
               onPrint={handlePrint}
+              onOpenCatalogManager={handleOpenCatalogModal}
             />
           </div>
 
-          {/* Preview Column (Always mounted so html2pdf / pdf export never fails) */}
+          {/* Preview Column */}
           <div className={`${viewMode === 'preview' || viewMode === 'split' ? 'flex' : 'hidden'} ${viewMode === 'split' ? 'lg:col-span-6 xl:col-span-7' : 'w-full'} flex-col items-center overflow-x-auto py-2`}>
             <div className="w-full flex items-center justify-between mb-3 px-2 no-print">
               <div className="flex items-center gap-2">
@@ -236,16 +312,20 @@ export default function App() {
         </div>
       </main>
 
-      {/* JSON Master Catalog Modal */}
-      <JsonDataModal
-        isOpen={isJsonModalOpen}
-        onClose={() => setIsJsonModalOpen(false)}
+      {/* Catalog & Party Master Manager Modal */}
+      <CatalogManagerModal
+        isOpen={isCatalogModalOpen}
+        onClose={() => setIsCatalogModalOpen(false)}
         sellers={sellers}
         buyers={buyers}
         goods={goods}
-        onUpdateSellers={setSellers}
-        onUpdateBuyers={setBuyers}
-        onUpdateGoods={setGoods}
+        onUpdateSellers={handleUpdateSellers}
+        onUpdateBuyers={handleUpdateBuyers}
+        onUpdateGoods={handleUpdateGoods}
+        onResetDefaults={handleResetDefaults}
+        onSelectSeller={handleSelectSeller}
+        onSelectBuyer={handleSelectBuyer}
+        initialTab={catalogInitialTab}
       />
     </div>
   );

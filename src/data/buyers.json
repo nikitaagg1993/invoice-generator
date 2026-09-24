@@ -25,5 +25,14 @@
     "stateName": "Delhi",
     "stateCode": "07",
     "placeOfSupply": "Delhi"
+  },
+  {
+    "id": "buyer-4",
+    "name": "ROYAL HARDWARE STORES",
+    "address": "45, Chandni Chowk Road,\nDelhi - 110006",
+    "gstin": "07AABCR4321D1ZQ",
+    "stateName": "Delhi",
+    "stateCode": "07",
+    "placeOfSupply": "Delhi"
   }
 ]

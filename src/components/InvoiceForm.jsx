@@ -22,7 +22,8 @@ export default function InvoiceForm({
   onChange,
   onResetSample,
   onDownloadPdf,
-  onPrint
+  onPrint,
+  onOpenCatalogManager
 }) {
   const [activeTab, setActiveTab] = useState('general'); // 'general', 'parties', 'items', 'bank'
 
@@ -380,21 +381,32 @@ export default function InvoiceForm({
         <div className="space-y-6">
           {/* Seller Section */}
           <div className="p-4 bg-indigo-50/50 dark:bg-gray-800/50 rounded-xl border border-indigo-100 dark:border-gray-700 space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h3 className="text-sm font-bold text-indigo-900 dark:text-indigo-300 flex items-center gap-2">
                 <Building2 className="w-4 h-4" />
                 Seller (Current User / Static JSON List)
               </h3>
-              <select
-                onChange={handleSellerSelect}
-                value={sellers.find(s => s.name === invoiceData.seller?.name)?.id || ''}
-                className="text-xs bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg px-2.5 py-1.5 font-medium"
-              >
-                <option value="" disabled>Select Preset Seller...</option>
-                {sellers.map(s => (
-                  <option key={s.id} value={s.id}>{s.name} ({s.stateName})</option>
-                ))}
-              </select>
+              <div className="flex items-center gap-2">
+                <select
+                  onChange={handleSellerSelect}
+                  value={sellers.find(s => s.name === invoiceData.seller?.name)?.id || ''}
+                  className="text-xs bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg px-2.5 py-1.5 font-medium"
+                >
+                  <option value="" disabled>Select Preset Seller...</option>
+                  {sellers.map(s => (
+                    <option key={s.id} value={s.id}>{s.name} ({s.stateName})</option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={() => onOpenCatalogManager && onOpenCatalogManager('sellers')}
+                  className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition"
+                  title="Add or Manage Sellers"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  Seller
+                </button>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
@@ -467,21 +479,32 @@ export default function InvoiceForm({
 
           {/* Buyer Section */}
           <div className="p-4 bg-purple-50/50 dark:bg-gray-800/50 rounded-xl border border-purple-100 dark:border-gray-700 space-y-3">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <h3 className="text-sm font-bold text-purple-900 dark:text-purple-300 flex items-center gap-2">
                 <User className="w-4 h-4" />
                 Buyer (Bill to / Static JSON List)
               </h3>
-              <select
-                onChange={handleBuyerSelect}
-                value={buyers.find(b => b.name === invoiceData.buyer?.name)?.id || ''}
-                className="text-xs bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg px-2.5 py-1.5 font-medium"
-              >
-                <option value="" disabled>Select Preset Buyer...</option>
-                {buyers.map(b => (
-                  <option key={b.id} value={b.id}>{b.name} ({b.stateName})</option>
-                ))}
-              </select>
+              <div className="flex items-center gap-2">
+                <select
+                  onChange={handleBuyerSelect}
+                  value={buyers.find(b => b.name === invoiceData.buyer?.name)?.id || ''}
+                  className="text-xs bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg px-2.5 py-1.5 font-medium"
+                >
+                  <option value="" disabled>Select Preset Buyer...</option>
+                  {buyers.map(b => (
+                    <option key={b.id} value={b.id}>{b.name} ({b.stateName})</option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={() => onOpenCatalogManager && onOpenCatalogManager('buyers')}
+                  className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition"
+                  title="Add or Manage Buyers"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  Buyer
+                </button>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
