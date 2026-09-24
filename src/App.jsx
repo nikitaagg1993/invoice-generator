@@ -52,20 +52,36 @@ export default function App() {
   const [catalogInitialTab, setCatalogInitialTab] = useState('sellers');
   const [viewMode, setViewMode] = useState('split'); // 'split', 'form', 'preview'
 
-  // Persistent state updates
+  // Helper to persist to physical disk files (src/data/*.json)
+  const saveToDisk = async (target, data) => {
+    try {
+      await fetch(`/api/save-${target}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    } catch (e) {
+      console.warn(`Could not sync to src/data/${target}.json:`, e);
+    }
+  };
+
+  // Persistent state updates (updates state, localStorage, and src/data/*.json on disk)
   const handleUpdateSellers = (newSellers) => {
     setSellers(newSellers);
     localStorage.setItem('gst_sellers', JSON.stringify(newSellers));
+    saveToDisk('sellers', newSellers);
   };
 
   const handleUpdateBuyers = (newBuyers) => {
     setBuyers(newBuyers);
     localStorage.setItem('gst_buyers', JSON.stringify(newBuyers));
+    saveToDisk('buyers', newBuyers);
   };
 
   const handleUpdateGoods = (newGoods) => {
     setGoods(newGoods);
     localStorage.setItem('gst_goods', JSON.stringify(newGoods));
+    saveToDisk('goods', newGoods);
   };
 
   const handleResetDefaults = () => {
@@ -76,6 +92,9 @@ export default function App() {
       setSellers(initialSellers);
       setBuyers(initialBuyers);
       setGoods(initialGoods);
+      saveToDisk('sellers', initialSellers);
+      saveToDisk('buyers', initialBuyers);
+      saveToDisk('goods', initialGoods);
     }
   };
 
